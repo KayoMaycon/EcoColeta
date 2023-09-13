@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="scripts/maps.js"></script>
+    <link rel="stylesheet" href="stylesheets/maps.css">
+    <!-- Reference to the Bing Maps SDK -->
+    <script type='text/javascript'
+            src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=ApDAhqYri_cG-Ewo5yUlVwYGMGp-N2lVZSjR3MPQtHMkaesZ_ZYSLlbtiIiGg5iN' 
+            async defer></script>
+    
+    <script type='text/javascript'>
+    </script>
+</head>
+<body>
+    <div align="center">
+        <div class="navMap"> 
+            <div class="buttonNavMap" onclick="descartar()"><img src="images/thrashIcon.svg" alt=""></div>
+            <div class="buttonNavMap"><img src="images/searchIcon.svg" alt=""></div>
+            <div class="buttonNavMap"><img src="images/historicIcon.svg" alt=""></div>
+            
+        </div>
+        
+        <div id="myMap" style="position:relative;width:1080px;height:1920px;"></div>
+        <div class="navApp">
+            <div class="buttonNavApp"><img src="images/homeIcon.svg" alt=""></div>
+            <div class="buttonNavApp"><img src="images/mapSelectedIcon.svg" alt=""></div>
+            <div class="buttonNavApp"><img src="images/configIcon.svg" alt=""></div>
+        </div>
+
+        
+    </div>
+</body>
+</html>
