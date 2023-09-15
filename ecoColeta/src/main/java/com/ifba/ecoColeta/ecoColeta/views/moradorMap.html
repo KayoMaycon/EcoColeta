@@ -3,15 +3,20 @@
 <head>
     <title></title>
     <meta charset="utf-8" />
-    <script src="scripts/maps.js"></script>
     <link rel="stylesheet" href="stylesheets/maps.css">
-    <!-- Reference to the Bing Maps SDK -->
+    <!-- Reference to the Bing Maps SDK 
     <script type='text/javascript'
             src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=ApDAhqYri_cG-Ewo5yUlVwYGMGp-N2lVZSjR3MPQtHMkaesZ_ZYSLlbtiIiGg5iN' 
             async defer></script>
     
     <script type='text/javascript'>
-    </script>
+    </script>-->
+     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>  
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
 </head>
 <body>
     <div align="center">
@@ -21,8 +26,10 @@
             <div class="buttonNavMap"><img src="images/historicIcon.svg" alt=""></div>
             
         </div>
+        <!--<h2></h2>-->
+        <div id="mapid"></div>
         
-        <div id="myMap" style="position:relative;width:1080px;height:1920px;"></div>
+        <!-- <div id="myMap" style="position:relative;width:1080px;height:1920px;"></div> -->
         <div class="navApp">
             <div class="buttonNavApp"><img src="images/homeIcon.svg" alt=""></div>
             <div class="buttonNavApp"><img src="images/mapSelectedIcon.svg" alt=""></div>
@@ -31,5 +38,87 @@
 
         
     </div>
+
+    
+    <script>
+
+    //variáveis para a implementação do armazenamento das localizações das coletas no BD
+    let index = 0;
+    let coletasLocalization = {};
+
+    //ícone da coleta
+    var iconColeta = L.icon({
+        iconUrl: 'images/coletaIcon.svg',
+
+        iconSize:     [38, 95], // 
+        iconAnchor:   [12, 74], // 
+        popupAnchor:  [5, -56] //
+    });
+
+    //ícone da localização atual
+    var iconActualLocation = L.icon({
+        iconUrl: 'images/mapSelectedIcon.svg',
+
+        iconSize:     [38, 95], // 
+        iconAnchor:   [12, 74], // 
+        popupAnchor:  [5, -56] //
+    });
+
+    //let h2 = document.querySelector('h2');
+    
+    //função principal de acesso ao local do dispositivo
+    function success(pos){
+        //console.log(pos.coords.latitude, pos.coords.longitude);
+        //h2.textContent = `Latitude:${pos.coords.latitude}, Longitude:${pos.coords.longitude}`;
+        
+        //variável do mapa
+        var map = L.map('mapid').setView([pos.coords.latitude, pos.coords.longitude], 70);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        //marcador para o local detectado na máquina
+        L.marker([pos.coords.latitude, pos.coords.longitude], {icon: iconActualLocation}).addTo(map)
+        .bindPopup('Você está aqui!')
+        .openPopup();
+
+        //listener de evento de clique no mapa
+        map.on("click", function(e){
+            //marcador da localização da coleta nova
+            var marker = new L.marker([e.latlng.lat, e.latlng.lng], {icon: iconColeta}).addTo(map)
+            .bindPopup('Coleta Marcada')
+            .openPopup();
+            
+            coletasLocalization["coleta"+index] = [e.latlng.lat, e.latlng.lng];
+        });
+       
+
+    }
+
+    //função de erro para localizar o dispositivo
+    function error(err){
+        console.log(err);
+    }
+
+    var watchID = navigator.geolocation.watchPosition(success, error, {
+        enableHighAccuracy: true,
+        timeout: 5000
+    })
+
+    /*
+    function handleMapClick(e){        
+        var popLocation= e.latlng;
+        alert(e.latlng);
+        var popup = L.popup()
+        .setLatLng(popLocation)
+        .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+        .openOn(map);        
+    };
+
+
+    map.on('click', handleMapClick);
+    */
+    </script>
 </body>
 </html>
