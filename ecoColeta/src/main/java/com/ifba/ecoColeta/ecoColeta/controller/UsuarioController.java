@@ -22,7 +22,7 @@ public class UsuarioController {
     private UsuarioServiceImplementation usuarioService;
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PostMapping()
+    @PostMapping("/save")
     public String saveUsuario(@RequestBody Usuario usuario){
         usuarioService.createUsuario(usuario);
         return "Novo User " + usuario.getNome() + " foi adicionado";
@@ -38,7 +38,7 @@ public class UsuarioController {
 
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @GetMapping ("/{id}")//Mapeei. Ele é chamado com o get
+    @GetMapping ("/get/{id}")//Mapeei. Ele é chamado com o get
     public ResponseEntity<Usuario> get(@PathVariable Long id){
         try{
             Usuario usuario = usuarioService.getById(id);
@@ -51,7 +51,7 @@ public class UsuarioController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @DeleteMapping ("/{id}")//Mapeei. Ele é chamado com o get
+    @DeleteMapping ("/delete/{id}")//Mapeei. Ele é chamado com o get
     public String delete(@PathVariable Long id){
         usuarioService.delete(id);
         return "User deletado com sucesso";
