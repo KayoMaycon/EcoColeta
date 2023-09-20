@@ -1,0 +1,64 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../../../../../../Documents/GitHub/EcoColeta"
+		},
+		{
+			"path": "../../../../../../../../.vscode"
+		},
+		{
+			"path": "../../../../../../.."
+		},
+		{
+			"path": "../../../../../../../.idea"
+		},
+		{
+			"path": "../../../../../../../.vscode"
+		},
+		{
+			"path": "../../../../../.."
+		},
+		{
+			"path": "../../../../.."
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "controller"
+		},
+		{
+			"path": "model"
+		},
+		{
+			"path": "repository"
+		},
+		{
+			"path": "service"
+		},
+		{
+			"path": "views"
+		},
+		{
+			"path": "views/images"
+		},
+		{
+			"path": "views/scripts"
+		},
+		{
+			"path": "views/stylesheets"
+		},
+		{
+			"path": "../../../../../resources"
+		},
+		{
+			"path": "../../../../../../test"
+		},
+		{
+			"path": "../../../../../../../target"
+		}
+	],
+	"settings": {
+		"java.compile.nullAnalysis.mode": "automatic"
+	}
+}
