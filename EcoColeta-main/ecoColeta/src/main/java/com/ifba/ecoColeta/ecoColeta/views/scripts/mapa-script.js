@@ -29,12 +29,13 @@ class CenterControl {
         this.controlText.style.lineHeight = '20px';
         this.controlText.style.color = '#FFFFFF';
         this.controlText.style.width = '100%';
-        this.controlText.innerHTML = 'Selecionar';
+        this.controlText.innerHTML = 'Adicionar descarte';
 
         this.controlUI.appendChild(this.controlText);
 
         this.controlUI.addEventListener('click', () => {
-            map.panTo(centerMap);
+            console.log("Enstrou no event");
+            document.getElementById("myModal").style.display = "block";
             //map.setCenter(centerMap);
         });
 
@@ -694,7 +695,6 @@ function initMap() {
     map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(meuLocalControl.controlDiv);
     map.controls[google.maps.ControlPosition.LEFT_CENTER].push(selecionarLocalControl.controlDiv); 
 }
-
 
 
 
