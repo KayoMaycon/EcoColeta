@@ -9,6 +9,7 @@ class CenterControl {
         this.controlUI = document.createElement('div');
         this.controlText = document.createElement('div');
 
+        //estilização em css
         this.controlDiv.style.width = '400px';
         this.controlDiv.style.marginTop = '10px';
         this.controlDiv.style.marginLeft = '80';

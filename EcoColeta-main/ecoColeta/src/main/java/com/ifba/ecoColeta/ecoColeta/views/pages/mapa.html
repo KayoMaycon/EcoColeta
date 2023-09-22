@@ -10,13 +10,27 @@
 
 <body>
     <div class="search">
-        <input type="text" name="my_location" id="my_location" placeholder="Onde estou..." value="" />
-        <input type="text" name="job_location" id="job_location" placeholder="Escolha o local..." value="" />
+        <!--
+        <div class="checkbox-container">
+            <label>
+                <input type="checkbox" name="opcao1"> Opção 1
+            </label>
+            <label>
+                <input type="checkbox" name="opcao2"> Opção 2
+            </label>
+            <label>
+                <input type="checkbox" name="opcao3"> Opção 3
+            </label>
+        </div>-->
+        <div class="search-content">
+            <input type="text" name="my_location" id="my_location" placeholder="Onde estou..." value="" />
+            <input type="text" name="job_location" id="job_location" placeholder="Escolha o local..." value="" />
+        </div>
     </div>
     <div id="map"></div>
     
     <script src="../scripts/mapa-script.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jbXU6rzzlIPpJvtIYA9TUWeSpAnPiOE&libraries=places&callback=initMap&region=BR" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jbXU6rzzlIPpJvtIYA9TUWeSpAnPiOE&libraries=places&callback=initMap" async defer></script>
 
 </body>
 
