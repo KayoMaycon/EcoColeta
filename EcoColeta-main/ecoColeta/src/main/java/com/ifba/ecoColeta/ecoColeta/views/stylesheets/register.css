@@ -1,10 +1,20 @@
+
 body{
-    background-color: #F5f5f5;
-    width: 1080px;
-    height: 1920px;
+    background: rgb(98, 165, 117);
+    background: radial-gradient(circle, rgb(98, 165, 117) 0%, rgb(219, 100, 100) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-
+.tela{
+    background-color: #221e1e6b;
+    border-radius: 30px;
+    
+    width: 360px;
+    height: 680px;
+}
 
 h1{
     font-family: Catamaran, Medium;
@@ -51,72 +61,6 @@ h1{
     position: relative;
     max-width: 300px;
   }
-
-.nome{
-    width: 100%;
-    font-family: Catamaran, Medium;
-    line-height: 28px;
-    padding-left: 3rem;
-    margin: 20px 0;
-    border-radius: 30px;
-    outline: 0;
-    height: 25px;
-    background-color: #00000000;
-    border-color: #1F4723;
-    border-style: solid;
-    border-width: 0.01rem;
-    transition: .3s ease;
-}
-
-.email{
-    width: 100%;
-    font-family: Catamaran, Medium;
-    line-height: 28px;
-    padding-left: 3rem;
-    margin: 20px 0;
-    border-radius: 30px;
-    outline: 0;
-    height: 25px;
-    background-color: #00000000;
-    border-color: #1F4723;
-    border-style: solid;
-    border-width: 0.01rem;
-    transition: .3s ease;
-}
-
-.senha{
-    width: 100%;
-    font-family: Catamaran, Medium;
-    line-height: 28px;
-    padding-left: 3rem;
-    margin: 20px 0;
-    border-radius: 30px;
-    outline: 0;
-    height: 25px;
-    background-color: #00000000;
-    border-color: #1F4723;
-    border-style: solid;
-    border-width: 0.01rem;
-    transition: .3s ease;
-}
-
-.senhaConfirm{
-    width: 100%;
-    font-family: Catamaran, Medium;
-    line-height: 28px;
-    padding-left: 3rem;
-    margin: 20px 0;
-    border-radius: 30px;
-    outline: 0;
-    height: 25px;
-    background-color: #00000000;
-    border-color: #1F4723;
-    border-style: solid;
-    border-width: 0.01rem;
-    transition: .3s ease;
-}
-
-
 
 
 .icon {

@@ -2,11 +2,11 @@ package com.ifba.ecoColeta.ecoColeta.controller;
 
 
 import com.ifba.ecoColeta.ecoColeta.model.Usuario;
-import com.ifba.ecoColeta.ecoColeta.service.UsuarioService;
+//import com.ifba.ecoColeta.ecoColeta.service.UsuarioService;
 import com.ifba.ecoColeta.ecoColeta.service.UsuarioServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
+//import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,7 +59,7 @@ public class UsuarioController {
     // /**
     //  * @param usuario
      
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    /*@CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping ("/getLogin")//Mapeei. Ele é chamado com o get
     public void getUsuario(@RequestBody Usuario usuario){
             
@@ -68,7 +68,7 @@ public class UsuarioController {
             if(usuarioService.getByName(email, senha)){
                System.out.println("User existe"); 
             }
-    }
+    }*/
 
 
 

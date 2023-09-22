@@ -20,17 +20,19 @@ public class Usuario {
     private String nome;
     private Long idade;
     private String telefone;
-    private Long localizacao;
+    private Double latitude;
+    private Double longitude;
 
-    public Usuario(String nome, String email, String senha){
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-    }
 
-    public String getSenha(){
-        return this.senha;
-    }
+    // public Usuario(String nome, String email, String senha){
+    //     this.nome = nome;
+    //     this.email = email;
+    //     this.senha = senha;
+    // }
+
+    // public String getSenha(){
+    //     return this.senha;
+    // }
     
 
 }

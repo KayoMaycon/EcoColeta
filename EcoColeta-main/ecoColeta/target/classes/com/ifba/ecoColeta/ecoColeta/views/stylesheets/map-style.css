@@ -1,0 +1,42 @@
+html, body {
+    height: 500px;
+    width: 500px;
+    margin: 0;
+    padding: 0;
+}
+
+.search {
+    width: 500px;
+    background-color: rgb(31, 155, 97);
+    margin-left: 50%;
+}
+
+#map { 
+    height: 100%; 
+    background-color: #ddd;
+    left: 50%;
+}
+
+#job_location, #my_location {
+    width: 440px; 
+    height: 30px;
+    color: #FFFFFF; 
+    border: none; 
+    background-color: #145f3c;
+    border-radius: 8px;
+    font-size: 20px;
+    margin-top: 5px;
+    margin-left: 25px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    
+} 
+
+#job_location::placeholder, #my_location::placeholder {
+    color: #327757;
+}
+
+#job_location:hover, #my_location:hover {
+    background-color: #09d978;
+    border: none;
+}
