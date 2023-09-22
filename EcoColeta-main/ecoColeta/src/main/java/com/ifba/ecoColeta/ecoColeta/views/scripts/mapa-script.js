@@ -423,7 +423,7 @@ function initMap() {
     initAutocomplete();
     var mapOptions = {
         center: {lat: -11.3300417, lng: -41.8788273},
-        zoomControl: false,
+        zoomControl: true,
         streetViewControl: false,
         mapTypeControl: false,
         fullscreenControl: false,
