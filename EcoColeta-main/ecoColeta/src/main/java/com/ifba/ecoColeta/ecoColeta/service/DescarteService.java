@@ -1,0 +1,16 @@
+package com.ifba.ecoColeta.ecoColeta.service;
+
+import com.ifba.ecoColeta.ecoColeta.model.Descarte;
+
+import java.util.List;
+
+public interface DescarteService {
+
+    public Descarte createDescarte(Descarte descarte);
+    public List<Descarte> retrieveAll();
+    public Descarte getById(Long id);
+    public void delete(Long id);
+    //public Boolean getByName(String email, String senha);
+    //public void login(String nome, String email, String senha);
+    //public Descarte update(Long id);
+}

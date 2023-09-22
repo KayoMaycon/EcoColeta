@@ -3,7 +3,7 @@ package com.ifba.ecoColeta.ecoColeta.service;
 import com.ifba.ecoColeta.ecoColeta.model.Usuario;
 import com.ifba.ecoColeta.ecoColeta.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
+//import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 
@@ -19,8 +19,6 @@ public class UsuarioServiceImplementation implements UsuarioService{
 
     @Override
     public Usuario createUsuario(Usuario usuario) {
-        
-        usuario.setSenha(usuario.getSenha());
         return usuarioRepository.save(usuario);
     }
 
@@ -39,15 +37,15 @@ public class UsuarioServiceImplementation implements UsuarioService{
             usuarioRepository.deleteById(id);
     }
 
-    @Override
-    public Boolean getByName(String email, String senha) {
-        Usuario user = new Usuario();
-        user.setSenha(senha);
-        user.setEmail(email);
-        System.out.println(user.getNome() + user.getEmail());
-        return usuarioRepository.exists(Example.of(user));
+    // @Override
+    // public Boolean getByName(String email, String senha) {
+    //     Usuario user = new Usuario();
+    //     user.setSenha(senha);
+    //     user.setEmail(email);
+    //     System.out.println(user.getNome() + user.getEmail());
+    //     return usuarioRepository.exists(Example.of(user));
         
-    }
+    // }
 
     
     
