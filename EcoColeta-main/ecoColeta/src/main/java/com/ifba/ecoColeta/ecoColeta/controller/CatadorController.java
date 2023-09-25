@@ -17,10 +17,12 @@ import java.util.NoSuchElementException;
 @RequestMapping("catador")
 public class CatadorController {
 
-    //Aqui eu instancio o service, injetando sua dependência
+    //Aqui eu instancio o service implementation, injetando sua dependência
     @Autowired
     private CatadorServiceImplementation catadorService;
 
+    //@CrossOrigin neste caso é para aceitar as requisições de * origens e * cabeçalhos
+    //@PostMapping indica q o método vai ser acessado através da requisição de post no endereço /save
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/save")
     public String saveCatador(@RequestBody Catador catador){

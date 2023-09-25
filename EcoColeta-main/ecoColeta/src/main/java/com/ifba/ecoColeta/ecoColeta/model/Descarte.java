@@ -5,6 +5,9 @@ import java.sql.Blob;
 import jakarta.persistence.*;
 import lombok.*;
 
+//mapeia a tabela e entidade à classe usuario
+//Cria getters e setters
+//cria construtor vazio e com todos os parâmetros
 @Table(name = "descarte")
 @Entity(name = "descarte")
 @Getter

@@ -4,6 +4,7 @@ import com.ifba.ecoColeta.ecoColeta.model.Catador;
 
 import java.util.List;
 
+//Cria os métodos a serem chamados no implementador que usará os do JPA repository
 public interface CatadorService {
 
     public Catador createCatador(Catador catador);

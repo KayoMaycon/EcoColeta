@@ -1,3 +1,5 @@
+/*Script chamado que pega os dados da tela de cadastro com o form sendo a
+tag e os .algo sendo os ids dos campos*/
 const formulario = document.querySelector("form");
 const Inome = document.querySelector(".nome");
 const Isenha = document.querySelector(".senha");
@@ -5,6 +7,7 @@ const Iemail = document.querySelector(".email");
 const IconfirmarSenha = document.querySelector(".senhaConfirm");
 
 
+//valida os campos
 function verificaCampos(){
     if((Isenha.value == "") || (Iemail.value == "") || (Inome.value == "")){
         alert("Há campos vazios");
@@ -18,7 +21,7 @@ function verificaCampos(){
 }
 
 
-
+//A verificação retornando true, ele fecha a api e passa os dados em json para o método 'post'
 function cadastrar(){
 
     if(verificaCampos() == true){

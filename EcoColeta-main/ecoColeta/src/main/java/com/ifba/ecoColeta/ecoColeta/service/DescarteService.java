@@ -4,6 +4,7 @@ import com.ifba.ecoColeta.ecoColeta.model.Descarte;
 
 import java.util.List;
 
+//Cria os métodos a serem chamados no implementador que usará os do JPA repository
 public interface DescarteService {
 
     public Descarte createDescarte(Descarte descarte);

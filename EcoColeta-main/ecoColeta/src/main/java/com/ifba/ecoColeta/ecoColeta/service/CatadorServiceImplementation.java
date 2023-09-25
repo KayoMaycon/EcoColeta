@@ -12,24 +12,29 @@ import java.util.List;
 @Service
 public class CatadorServiceImplementation implements CatadorService{
 
+    //"Instancia" a classe repository, adding todos os métodos do JPA repository
     @Autowired
     private CatadorRepository catadorRepository;
 
+    // 'C'rud - Chama método save e cria Catador
     @Override
     public Catador createCatador(Catador catador) {
         return catadorRepository.save(catador);
     }
 
+    // c'R'ud - Método q consulta o banco e retorna uma lista de Catadores
     @Override
     public List<Catador> retrieveAll() {
         return catadorRepository.findAll();
     }
 
+    // c'R'ud - Método q consulta o banco e retorna um Catador com o id especificado
     @Override
     public Catador getById(Long id) {
         return catadorRepository.findById(id).get();
     }
 
+    //cru'D' - Método reponsável pela deleção de um Catador com o ID informado
     @Override
     public void delete(Long id) {
             catadorRepository.deleteById(id);

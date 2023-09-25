@@ -21,6 +21,8 @@ public class UsuarioController {
     @Autowired
     private UsuarioServiceImplementation usuarioService;
 
+    //@CrossOrigin neste caso é para aceitar as requisições de * origens e * cabeçalhos
+    //@PostMapping indica q o método vai ser acessado através da requisição de post no endereço /save
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/save")
     public String saveUsuario(@RequestBody Usuario usuario){
