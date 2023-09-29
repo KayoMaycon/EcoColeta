@@ -1,5 +1,21 @@
 
+/* Styles para dispositivos Android 
+@media only screen and (max-width: 767px) {
+    body {
+        background-color: #; 
+    }
+}
+
+/* Styles para dispositivos non-Android 
+@media only screen and (min-width: 768px) {
+    body {
+        background-color: #
+    }
+}
+*/
+
 body{
+            /*fundo com degrade radius, usei o site "cssgradient.io" */
     background: rgb(98, 165, 117);
     background: radial-gradient(circle, rgb(98, 165, 117) 0%, rgb(219, 100, 100) 100%);
     display: flex;
@@ -23,9 +39,8 @@ h1{
     margin: 40px;
 }
 
-
-/*-----------------------------------------*/
-.nome{
+            /*textfield*/
+.input{
     width: 100%;
     font-family: Catamaran, Medium;
     line-height: 28px;
@@ -41,112 +56,19 @@ h1{
     transition: .3s ease;
 }
 
-.nome::placeholder {
+.input::placeholder {
     color: #7F9D82; 
     font-family: Catamaran, Medium;
     font-size: 14px; 
     font-weight: normal; 
 }
 
-.nome:focus, .input:hover {
+.input:focus, input:hover {
     outline: none;
     border-color: rgba(128, 255, 126, 0.4);
     background-color: #f5f5f5;
     box-shadow: 0 0 0 4px rgba(11, 24, 13, 0.1);
    }
-/*---------------------------------------------------------------*/
-.email{
-    width: 100%;
-    font-family: Catamaran, Medium;
-    line-height: 28px;
-    padding-left: 3rem;
-    margin: 20px 0;
-    border-radius: 30px;
-    outline: 0;
-    height: 25px;
-    background-color: #00000000;
-    border-color: #1F4723;
-    border-style: solid;
-    border-width: 0.01rem;
-    transition: .3s ease;
-}
-
-.email::placeholder {
-    color: #7F9D82; 
-    font-family: Catamaran, Medium;
-    font-size: 14px; 
-    font-weight: normal; 
-}
-
-.email:focus, .email:hover {
-    outline: none;
-    border-color: rgba(128, 255, 126, 0.4);
-    background-color: #f5f5f5;
-    box-shadow: 0 0 0 4px rgba(11, 24, 13, 0.1);
-   }
-/*---------------------------------------------------------------*/
-.senha{
-    width: 100%;
-    font-family: Catamaran, Medium;
-    line-height: 28px;
-    padding-left: 3rem;
-    margin: 20px 0;
-    border-radius: 30px;
-    outline: 0;
-    height: 25px;
-    background-color: #00000000;
-    border-color: #1F4723;
-    border-style: solid;
-    border-width: 0.01rem;
-    transition: .3s ease;
-}
-
-.senha::placeholder {
-    color: #7F9D82; 
-    font-family: Catamaran, Medium;
-    font-size: 14px; 
-    font-weight: normal; 
-}
-
-.senha:focus, .senha:hover {
-    outline: none;
-    border-color: rgba(128, 255, 126, 0.4);
-    background-color: #f5f5f5;
-    box-shadow: 0 0 0 4px rgba(11, 24, 13, 0.1);
-   }
-/*---------------------------------------------------------------*/
-.senhaConfirm{
-    width: 100%;
-    font-family: Catamaran, Medium;
-    line-height: 28px;
-    padding-left: 3rem;
-    margin: 20px 0;
-    border-radius: 30px;
-    outline: 0;
-    height: 25px;
-    background-color: #00000000;
-    border-color: #1F4723;
-    border-style: solid;
-    border-width: 0.01rem;
-    transition: .3s ease;
-}
-
-.senhaConfirm::placeholder {
-    color: #7F9D82; 
-    font-family: Catamaran, Medium;
-    font-size: 14px; 
-    font-weight: normal; 
-}
-
-.senhaConfirm:focus, .senhaConfirm:hover {
-    outline: none;
-    border-color: rgba(128, 255, 126, 0.4);
-    background-color: #f5f5f5;
-    box-shadow: 0 0 0 4px rgba(11, 24, 13, 0.1);
-   }
-/*---------------------------------------------------------------*/
-
-
 
 .group {
     display: flex;
@@ -157,6 +79,7 @@ h1{
   }
 
 
+            /*icones dos txtfields*/
 .icon {
     position: absolute;
     left: 1rem;

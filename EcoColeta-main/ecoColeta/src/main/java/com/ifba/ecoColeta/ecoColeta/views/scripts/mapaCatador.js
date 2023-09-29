@@ -4,7 +4,6 @@ var job_location = document.getElementById('job_location');
 let autocomplete;
 let userLocation = null;
 
-
 class CenterControl {
     constructor(map) {
         this.controlDiv = document.createElement('div'); // bom ter conhecimento de DOM
@@ -15,24 +14,8 @@ class CenterControl {
         this.controlDiv.style.marginTop = '10px';
         this.controlDiv.style.marginLeft = '80';
 
-        this.controlUI.style.backgroundColor = '#145f3c';
-        this.controlUI.style.border = '2px solid #ebebeb';
-        this.controlUI.style.borderRadius = '8px';
-        this.controlUI.style.padding = '4px';
-        this.controlUI.style.cursor = 'pointer';
-        this.controlUI.style.title = 'Centralizar mapa';
-        this.controlUI.style.width = '100%';
 
         this.controlDiv.appendChild(this.controlUI);
-
-        this.controlText.style.fontSize = '16px';
-        this.controlText.style.textAlign = 'center';
-        this.controlText.style.lineHeight = '20px';
-        this.controlText.style.color = '#FFFFFF';
-        this.controlText.style.width = '100%';
-        this.controlText.innerHTML = 'Selecionar';
-
-        this.controlUI.appendChild(this.controlText);
 
         this.controlUI.addEventListener('click', () => {
             // Criando uma div vazia
@@ -404,6 +387,7 @@ function updateMap(latlon) {
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControl.controlDiv);
     map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(meuLocalControl.controlDiv);
 
+    /*
     map.addListener('click', function(e) {
         var clickPosition = e.latLng;
         new google.maps.Marker({
@@ -411,7 +395,7 @@ function updateMap(latlon) {
             map: map,
             title: 'Adicionar descarte',
             icon: {
-                url: '../images/coringa.svg', 
+                url: '/images/coringa.svg', 
                 scaledSize: new google.maps.Size(64, 64), 
             },
             animation: google.maps.Animation.DROP,
@@ -419,33 +403,7 @@ function updateMap(latlon) {
         });
 
         abrirDetalhes(clickPosition);
-
-        //armazeno a latitude e longitude do clique
-        const ILat = e.latLng.lat();
-        const ILng = e.latLng.lng();
-        
-        //aqui salvo eles no BD
-        fetch("http://localhost:8080/descarte/save",
-        {
-            headers:{
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-        },
-            method: 'POST',
-            body: JSON.stringify({
-                latitude: ILat,
-                longitude: ILng,
-            })
-                
-
-        })
-        .then(function(res) {console.log(res)})
-        .catch(function(res) {console.log(res)});
-        
-        //um alert apenas pra testar se rodou até aqui
-        alert("Descarte cadastrado com sucesso");
-
-    });
+    });*/
 }
  
 function showError(error)
@@ -561,7 +519,7 @@ function initMap() {
     initAutocomplete();
 
     var mapOptions = {
-        center: {lat: 0, lng: 0},
+        center: {lat: -11.3300417, lng: -41.8788273},
         zoomControl: false,
         streetViewControl: false,
         mapTypeControl: false,

@@ -15,6 +15,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+
 public class Descarte{
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +23,10 @@ public class Descarte{
     private String material;
     private Float valor;
     private Double quantidade;
+
     private Double latitude;
-    private Long longitude;
+    private Double longitude;
+    
     private String dono;
     private Blob foto;
     private String status;

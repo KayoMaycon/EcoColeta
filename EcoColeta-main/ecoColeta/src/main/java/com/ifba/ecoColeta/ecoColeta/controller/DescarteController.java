@@ -29,6 +29,7 @@ public class DescarteController {
         descarteService.createDescarte(descarte);
         return "Descarte material: " + descarte.getMaterial() + " postado por" +
         descarte.getDono() + " Foi  adicionado com sucesso";
+        //TRIGGER DO WEBHOOK IMPLEMENTADO AQUI
 
     }
 
