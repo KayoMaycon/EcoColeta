@@ -3,6 +3,7 @@ var directionsRenderer;
 var job_location = document.getElementById('job_location');
 let autocomplete;
 let userLocation = null;
+var descartesDisponíveis = [];
 
 class CenterControl {
     constructor(map) {
@@ -78,6 +79,8 @@ function getLocation() {
 }
  
 function showPosition(position) {
+    //fetchData();
+
     // Coordenadas de geolocalização
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
@@ -110,7 +113,96 @@ function showPosition(position) {
         // Chama a função calculateRoute com as coordenadas
         calculateRoute(latlon, place);
     }
+
+    
+
+    fetch("http://localhost:8080/descarte/getAll")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json(); // Parse the JSON response
+      })
+      .then((data) => {
+        console.log(data);
+        // 'data' is now a JavaScript array containing the list from the controller
+        for (let index = 0; index < data.length; index++) {
+            descartesDisponíveis[index] = data[index];
+            const valoresLatLng = new google.maps.LatLng(descartesDisponíveis[index].latitude, descartesDisponíveis[index].longitude);
+            console.log(valoresLatLng);
+            if(descartesDisponíveis[index].latitude != null && descartesDisponíveis[index].longitude != null){
+                
+                /*new google.maps.Marker({
+                    position: valoresLatLng,
+                    map: map,
+                    title: 'Coleta Disponível',
+                    icon: {
+                        url: '../images/coringa.svg', 
+                        scaledSize: new google.maps.Size(64, 64), 
+                    },
+                    animation: google.maps.Animation.DROP,
+                    draggable: false
+                });*/
+
+                new google.maps.Marker({
+                    position: valoresLatLng,
+                    map: map,
+                    title: 'Minha Localização',
+                    icon: '../images/coringa.svg',
+                    animation: google.maps.Animation.DROP,
+                    draggable: false
+                });
+            }
+        //descartesDisponíveis = data;
+        }
+        // You can process the data as needed here
+      })
+      .catch((error) => {
+        console.error("There was a problem with the fetch operation:", error);
+      });
+    
+    /*
+    for (let index = 0; index < descartesDisponíveis.length; index++) {
+        alert("TESTE");
+        const element = descartesDisponíveis[index];
+        if (element.latitude) {
+            
+            alert(element);
+        }
+    }  {
+        var clickPosition = e.latLng;
+        new google.maps.Marker({
+            position: clickPosition,
+            map: map,
+            title: 'Adicionar descarte',
+            icon: {
+                url: '/images/coringa.svg', 
+                scaledSize: new google.maps.Size(64, 64), 
+            },
+            animation: google.maps.Animation.DROP,
+            draggable: false
+        });
+
+        abrirDetalhes(clickPosition);
+    };*/
 }
+
+async function fetchData() {
+    try {
+      const response = await fetch('http://localhost:8080/getAll');
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const data = await response.json();
+      
+      // You can work with the data here
+      console.log(data);
+    } catch (error) {
+      console.error('Fetch error:', error);
+    }
+  }
 
 
 function updateMap(latlon) {
@@ -387,23 +479,6 @@ function updateMap(latlon) {
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControl.controlDiv);
     map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(meuLocalControl.controlDiv);
 
-    /*
-    map.addListener('click', function(e) {
-        var clickPosition = e.latLng;
-        new google.maps.Marker({
-            position: clickPosition,
-            map: map,
-            title: 'Adicionar descarte',
-            icon: {
-                url: '/images/coringa.svg', 
-                scaledSize: new google.maps.Size(64, 64), 
-            },
-            animation: google.maps.Animation.DROP,
-            draggable: false
-        });
-
-        abrirDetalhes(clickPosition);
-    });*/
 }
  
 function showError(error)
