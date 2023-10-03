@@ -1,4 +1,4 @@
-package com.ecocoleta.chat.config;
+package com.ifba.ecoColeta.ecoColeta.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

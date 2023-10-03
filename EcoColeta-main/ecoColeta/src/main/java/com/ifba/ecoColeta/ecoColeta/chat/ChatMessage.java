@@ -1,4 +1,4 @@
-package com.ecocoleta.chat.chat;
+package com.ifba.ecoColeta.ecoColeta.chat;
 
 import lombok.*;
 

@@ -1,7 +1,7 @@
-package com.ecocoleta.chat.config;
+package com.ifba.ecoColeta.ecoColeta.config;
 
-import com.ecocoleta.chat.chat.ChatMessage;
-import com.ecocoleta.chat.chat.MessageType;
+import com.ifba.ecoColeta.ecoColeta.chat.ChatMessage;
+import com.ifba.ecoColeta.ecoColeta.chat.MessageType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
