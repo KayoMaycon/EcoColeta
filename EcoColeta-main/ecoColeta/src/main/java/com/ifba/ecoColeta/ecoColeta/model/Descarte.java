@@ -29,6 +29,9 @@ public class Descarte{
     
     private String dono;
     private Blob foto;
+
+    //variável int porque é melhor pra distinguir o status
+                        //1 - disponível, 2 - em processo, 3 - coletado com sucesso 
     private String status;
 
 }

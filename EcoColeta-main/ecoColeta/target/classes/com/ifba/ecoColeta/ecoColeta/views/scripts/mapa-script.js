@@ -1,8 +1,11 @@
 var map;
 var directionsRenderer;
-var job_location = document.getElementById('job_location');
+var final_location = document.getElementById('final_location');
 let autocomplete;
 let userLocation = null;
+
+let saveDescarte = false;
+var clickPosition;
 
 
 class CenterControl {
@@ -34,20 +37,45 @@ class CenterControl {
 
         this.controlUI.appendChild(this.controlText);
 
+        //FUNÇÃO DO BOTÃO DE SELECIONAR, PARA CADASTRAR O DESCARTE
         this.controlUI.addEventListener('click', () => {
-            // Criando uma div vazia
-            var div = document.createElement('div');
-            
-            // Definindo os estilos da div
-            div.style.width = '250px';
-            div.style.height = '50px';
-            div.style.backgroundColor = 'white';
-            div.style.position = 'absolute'; // Posição absoluta em relação ao mapa
-            div.style.top = '50px'; 
-            div.style.left = '50px'; 
 
-          
-            document.getElementById('map').appendChild(div);
+            if (saveDescarte == true) {
+                
+            //armazeno a latitude e longitude do clique
+            const ILat = clickPosition.lat();
+            const ILng = clickPosition.lng();
+            
+            //aqui salvo eles no BD
+            fetch("http://localhost:8080/descarte/save",
+            {
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+            },
+                method: 'POST',
+                body: JSON.stringify({
+                    latitude: ILat,
+                    longitude: ILng,
+                    status: 1,
+                })
+                    
+
+            })
+            .then(function(res) {console.log(res)})
+            .catch(function(res) {console.log(res)});
+
+            // Geocodifica as coordenadas
+            const geocoder = new google.maps.Geocoder();
+            geocodeLatLng(geocoder, ILat, ILng, 'final_location');
+            
+            //um alert apenas pra testar se rodou até aqui
+            alert("Descarte cadastrado com sucesso");
+            }
+            else{
+                alert("Selecione um descarte")
+            }
+
         });
 
 
@@ -120,7 +148,7 @@ function showPosition(position) {
 
     // Geocodifica as coordenadas
     const geocoder = new google.maps.Geocoder();
-    geocodeLatLng(geocoder, lat, lon);
+    geocodeLatLng(geocoder, lat, lon, 'my_location');
 
     // Verifica se a variável está definida
     if (typeof place !== 'undefined') {
@@ -405,7 +433,7 @@ function updateMap(latlon) {
     map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(meuLocalControl.controlDiv);
 
     map.addListener('click', function(e) {
-        var clickPosition = e.latLng;
+        clickPosition = e.latLng;
         new google.maps.Marker({
             position: clickPosition,
             map: map,
@@ -418,32 +446,11 @@ function updateMap(latlon) {
             draggable: false
         });
 
-        abrirDetalhes(clickPosition);
+        //abrirDetalhes(clickPosition);
+        calculateRoute(clickPosition);
 
-        //armazeno a latitude e longitude do clique
-        const ILat = e.latLng.lat();
-        const ILng = e.latLng.lng();
+        saveDescarte = true;
         
-        //aqui salvo eles no BD
-        fetch("http://localhost:8080/descarte/save",
-        {
-            headers:{
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-        },
-            method: 'POST',
-            body: JSON.stringify({
-                latitude: ILat,
-                longitude: ILng,
-            })
-                
-
-        })
-        .then(function(res) {console.log(res)})
-        .catch(function(res) {console.log(res)});
-        
-        //um alert apenas pra testar se rodou até aqui
-        alert("Descarte cadastrado com sucesso");
 
     });
 }
@@ -467,7 +474,7 @@ function showError(error)
     }
   }
 
-function geocodeLatLng(geocoder, lat, lon) {
+function geocodeLatLng(geocoder, lat, lon, location) {
     const valor_pego = lat + ',' + lon;
     const cleanInput = valor_pego.replace(/[()]/g, '');
 
@@ -486,7 +493,7 @@ function geocodeLatLng(geocoder, lat, lon) {
                         position: latlng,
                     });
 
-                    var my_location = document.getElementById('my_location');
+                    var my_location = document.getElementById(location);
                     localAtual = response.results[0].formatted_address;
                     my_location.placeholder = localAtual;
                 } else {
@@ -538,7 +545,7 @@ function geocodeLatLng(geocoder, lat, lon) {
 
 function initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete(
-        job_location,
+        final_location,
         {
             types: ['geocode'],
             componentRestrictions: { country: 'BR' },

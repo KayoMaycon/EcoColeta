@@ -1,11 +1,16 @@
 var map;
 var directionsRenderer;
-var job_location = document.getElementById('job_location');
+var final_location = document.getElementById('final_location');
 let autocomplete;
 let userLocation = null;
 var descartesDisponíveis = [];
+const descarteDisponivellat = 0;
+
+
+
 
 class CenterControl {
+    
     constructor(map) {
         this.controlDiv = document.createElement('div'); // bom ter conhecimento de DOM
         this.controlUI = document.createElement('div');
@@ -33,7 +38,7 @@ class CenterControl {
           
             document.getElementById('map').appendChild(div);
         });
-
+        
 
     }
 }
@@ -80,6 +85,7 @@ function getLocation() {
  
 function showPosition(position) {
     //fetchData();
+    let descarteDisponivel = null;
 
     // Coordenadas de geolocalização
     const lat = position.coords.latitude;
@@ -115,7 +121,12 @@ function showPosition(position) {
     }
 
     
+                                                                    //REALIZAR DENTRO DE UM BOTÃO
+    
+    const shorter_distance = 0;
+    var actual_distance = 0;
 
+                                                                    
     fetch("http://localhost:8080/descarte/getAll")
       .then((response) => {
         if (!response.ok) {
@@ -125,67 +136,74 @@ function showPosition(position) {
       })
       .then((data) => {
         console.log(data);
-        // 'data' is now a JavaScript array containing the list from the controller
-        for (let index = 0; index < data.length; index++) {
-            descartesDisponíveis[index] = data[index];
-            const valoresLatLng = new google.maps.LatLng(descartesDisponíveis[index].latitude, descartesDisponíveis[index].longitude);
-            console.log(valoresLatLng);
-            if(descartesDisponíveis[index].latitude != null && descartesDisponíveis[index].longitude != null){
-                
-                /*new google.maps.Marker({
-                    position: valoresLatLng,
-                    map: map,
-                    title: 'Coleta Disponível',
-                    icon: {
-                        url: '../images/coringa.svg', 
-                        scaledSize: new google.maps.Size(64, 64), 
-                    },
-                    animation: google.maps.Animation.DROP,
-                    draggable: false
-                });*/
 
-                new google.maps.Marker({
-                    position: valoresLatLng,
-                    map: map,
-                    title: 'Minha Localização',
-                    icon: '../images/coringa.svg',
-                    animation: google.maps.Animation.DROP,
-                    draggable: false
-                });
+        for (let index = 0; index < data.length; index++) {
+            if(data[index].status != null){
+
+                const numbertest = Number(data[index].status);
+                console.log(typeof numbertest);
+                console.log(numbertest);
+
+                if(data[index].status == 1){
+                    console.log(data[index].id);
+
+                    actual_distance = calculateDistance(lat, lon, data[index].latitude, data[index].longitude);
+                    
+                    if(actual_distance < shorter_distance){
+                        descartesDisponíveis[index] = data[index];
+                    }
+                
+                    const valoresLatLng = new google.maps.LatLng(descarteDisponivel.latitude, descarteDisponivel.longitude);
+                    //console.log(descarteDisponivel.latitude );
+                }
+            }else{
+                continue;
             }
-        //descartesDisponíveis = data;
-        }
+                console.log(descartesDisponíveis[index]);
+                if(descarteDisponivel.latitude != null && descarteDisponivel.longitude != null){
+
+                    new google.maps.Marker({
+                        position: valoresLatLng,
+                        map: map,
+                        title: 'Minha Localização',
+                        icon: '../images/coringa.svg',
+                        animation: google.maps.Animation.DROP,
+                        draggable: false
+                    });
+                }
+            //descartesDisponíveis = data;
+            }
+        
         // You can process the data as needed here
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
       });
     
-    /*
-    for (let index = 0; index < descartesDisponíveis.length; index++) {
-        alert("TESTE");
-        const element = descartesDisponíveis[index];
-        if (element.latitude) {
-            
-            alert(element);
-        }
-    }  {
-        var clickPosition = e.latLng;
-        new google.maps.Marker({
-            position: clickPosition,
-            map: map,
-            title: 'Adicionar descarte',
-            icon: {
-                url: '/images/coringa.svg', 
-                scaledSize: new google.maps.Size(64, 64), 
-            },
-            animation: google.maps.Animation.DROP,
-            draggable: false
-        });
-
-        abrirDetalhes(clickPosition);
-    };*/
 }
+
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const earthRadiusKm = 6371; // RAIO DA TERRA EM KILOMETROS
+  
+    // CONVERTER A LATITUDE E LONGITUDE DE GRAUS PARA RADIANO 
+    const lat1Rad = (lat1 * Math.PI) / 180;
+    const lon1Rad = (lon1 * Math.PI) / 180;
+    const lat2Rad = (lat2 * Math.PI) / 180;
+    const lon2Rad = (lon2 * Math.PI) / 180;
+  
+    // CALCULA A DIFERENÇA
+    const latDiff = lat2Rad - lat1Rad;
+    const lonDiff = lon2Rad - lon1Rad;
+  
+    // CALCULA A DISTANCIA USANDO A FORMULA DE HAVERSINE  
+    const a =
+      Math.sin(latDiff / 2) ** 2 +
+      Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(lonDiff / 2) ** 2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = earthRadiusKm * c;
+  
+    return distance; // DISTANCIA EM KILOMETROS
+  }
 
 async function fetchData() {
     try {
@@ -571,7 +589,7 @@ function geocodeLatLng(geocoder, lat, lon) {
 
 function initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete(
-        job_location,
+        final_location,
         {
             types: ['geocode'],
             componentRestrictions: { country: 'BR' },

@@ -26,7 +26,7 @@ html, body {
     background-color: #ddd;
 }
 
-#job_location, #my_location {
+#final_location, #my_location {
     width: 440px; 
     height: 30px;
     color: #FFFFFF; 
@@ -41,11 +41,11 @@ html, body {
     
 } 
 
-#job_location::placeholder, #my_location::placeholder {
+#final_location::placeholder, #my_location::placeholder {
     color: #327757;
 }
 
-#job_location:hover, #my_location:hover {
+#final_location:hover, #my_location:hover {
     background-color: #145f3c;
     border: none;
 }
