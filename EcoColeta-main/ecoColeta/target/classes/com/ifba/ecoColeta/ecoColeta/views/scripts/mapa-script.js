@@ -447,7 +447,7 @@ function updateMap(latlon) {
         });
 
         //abrirDetalhes(clickPosition);
-        calculateRoute(clickPosition);
+        //calculateRoute(clickPosition);
 
         saveDescarte = true;
         

@@ -65,8 +65,8 @@ public class DescarteController {
         }
 
         // Atualize os campos do descarte existente com os dados do descarte atualizado
-        descarteExistente.setMaterial(descarteAtualizado.getMaterial());
-        descarteExistente.setDono(descarteAtualizado.getDono());
+        //descarteExistente.setMaterial(descarteAtualizado.getMaterial());
+        //descarteExistente.setDono(descarteAtualizado.getDono());
         // Outros campos a serem atualizados
 
         descarteService.updateDescarte(descarteExistente);

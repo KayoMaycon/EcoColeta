@@ -36,8 +36,12 @@ public class DescarteServiceImplementation implements DescarteService{
 
     //cr'U'd - Método reponsável pela atualização de um Descarte com o ID informado
     @Override
-    public Descarte updateDescarte(Descarte descarte) {
-        return descarteRepository.save(descarte);
+    public void updateDescarte(Descarte descarte) {
+        // Certifique-se de que o objeto descarte tenha um ID válido
+        if (descarte.getId() == null) {
+            throw new IllegalArgumentException("O ID do descarte não pode ser nulo.");
+        }
+        descarteRepository.save(descarte);
     }
 
     //cru'D' - Método reponsável pela deleção de um Descarte com o ID informado

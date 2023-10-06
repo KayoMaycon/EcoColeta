@@ -245,6 +245,8 @@ function searchDescarte(){
             
             //aqui salvo eles no BD
             const idDoDescarteParaAtualizar = descartesDisponíveis[0].id;
+            console.log(idDoDescarteParaAtualizar);
+            
             fetch(`http://localhost:8080/descarte/update/${idDoDescarteParaAtualizar}`,
             {
                 headers:{
