@@ -34,7 +34,12 @@ public class DescarteServiceImplementation implements DescarteService{
         return descarteRepository.findById(id).get();
     }
 
-    
+    //cr'U'd - Método reponsável pela atualização de um Descarte com o ID informado
+    @Override
+    public Descarte updateDescarte(Descarte descarte) {
+        return descarteRepository.save(descarte);
+    }
+
     //cru'D' - Método reponsável pela deleção de um Descarte com o ID informado
     @Override
     public void delete(Long id) {

@@ -39,6 +39,7 @@ public class DescarteController {
         return descarteService.retrieveAll();
 
     }
+    
 
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -52,6 +53,30 @@ public class DescarteController {
             return new ResponseEntity<Descarte>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PutMapping("/update/{id}") // Mapeado como PUT
+    public ResponseEntity<String> updateDescarte(@PathVariable Long id, @RequestBody Descarte descarteAtualizado) {
+    try {
+        Descarte descarteExistente = descarteService.getById(id);
+
+        if (descarteExistente == null) {
+            return new ResponseEntity<>("Descarte não encontrado", HttpStatus.NOT_FOUND);
+        }
+
+        // Atualize os campos do descarte existente com os dados do descarte atualizado
+        descarteExistente.setMaterial(descarteAtualizado.getMaterial());
+        descarteExistente.setDono(descarteAtualizado.getDono());
+        // Outros campos a serem atualizados
+
+        descarteService.updateDescarte(descarteExistente);
+
+        return new ResponseEntity<>("Descarte atualizado com sucesso", HttpStatus.OK);
+    } catch (Exception e) {
+        return new ResponseEntity<>("Erro ao atualizar o descarte: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping ("/delete/{id}")//Mapeei. Ele é chamado com o get

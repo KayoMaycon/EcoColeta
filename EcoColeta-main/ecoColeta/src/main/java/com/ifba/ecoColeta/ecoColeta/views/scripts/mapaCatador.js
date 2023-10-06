@@ -3,10 +3,23 @@ var directionsRenderer;
 var final_location = document.getElementById('final_location');
 let autocomplete;
 let userLocation = null;
-var descartesDisponíveis = {};
-var valoresLatLng;
-const descarteDisponivellat = 0;
 
+var valoresLatLng;
+
+//array para armazenar globalmente os descartesdisponíveis
+var descartesDisponíveis = {};
+
+//array para armazenar globalmente a localização atual
+var mylocationlatlon = []
+
+//booleano para saber se há um descarte disponível
+var hasDescarte = false;
+
+//booleano para saber se o descarte ta selecionado
+var selectedDescarte = false;
+
+//estado para mudar funcionalidade de um único botão
+var stateButton = 1;
 
 
 
@@ -89,9 +102,9 @@ function showPosition(position) {
     let descarteDisponivel = null;
 
     // Coordenadas de geolocalização
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-    const latlon = new google.maps.LatLng(lat, lon);
+    mylocationlatlon[0] = position.coords.latitude;
+    mylocationlatlon[1] = position.coords.longitude;
+    const latlon = new google.maps.LatLng(mylocationlatlon[0], mylocationlatlon[1]);
 
     userLocation = latlon;
 
@@ -113,7 +126,7 @@ function showPosition(position) {
 
     // Geocodifica as coordenadas
     const geocoder = new google.maps.Geocoder();
-    geocodeLatLng(geocoder, lat, lon);
+    geocodeLatLng(geocoder, position.coords.latitude, position.coords.longitude);
 
     // Verifica se a variável está definida
     if (typeof place !== 'undefined') {
@@ -122,74 +135,130 @@ function showPosition(position) {
     }
 
     
+    const button = document.getElementById('search-button');
+    button.addEventListener('click', searchDescarte);
+    
                                                                     //REALIZAR DENTRO DE UM BOTÃO
+    
+}
+
+function searchDescarte(){
     
     let shorter_distance = 0;
     var actual_distance = 0;
 
-                                                                    
-    fetch("http://localhost:8080/descarte/getAll")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json(); // Parse the JSON response
-      })
-      .then((data) => {
-        console.log(data);
+    if(stateButton == 1){
+                                                                        
+        fetch("http://localhost:8080/descarte/getAll")
+        .then((response) => {
+            if (!response.ok) {
+            throw new Error("Network response was not ok");
+            }
+            return response.json(); // Parse the JSON response
+        })
+        .then((data) => {
+            console.log(data);
 
-        for (let index = 0; index < data.length; index++) {
-            if(data[index].status != null){
+            for (let index = 0; index < data.length; index++) {
+                if(data[index].status != null){
+                    if(data[index].status == 1){
 
-                const numbertest = Number(data[index].status);
-                //console.log(typeof numbertest);
-                //console.log(numbertest);
+                        //distancia do descarte atual sendo analisado
+                        actual_distance = calculateDistance(mylocationlatlon[0], mylocationlatlon[1], data[index].latitude, data[index].longitude);
+                        
+                        //seleciona quando não tem nenhuma selecionada
+                        if(shorter_distance == 0){
+                            shorter_distance = actual_distance;
+                        }
 
-                if(data[index].status == 1){
-
-                    actual_distance = calculateDistance(lat, lon, data[index].latitude, data[index].longitude);
-                    
-                    
-                    if(shorter_distance == 0){
-                        shorter_distance = actual_distance;
+                        //se a distancia for menor do que a que a menor anterior, ela é selecionada
+                        if(actual_distance <= shorter_distance){
+                            descartesDisponíveis[0] = data[index];
+                            valoresLatLng = new google.maps.LatLng(descartesDisponíveis[0].latitude, descartesDisponíveis[0].longitude);
+                        }
+                        else{
+                            continue;
+                        }
                     }
-                    if(actual_distance <= shorter_distance){
-                        descartesDisponíveis[index] = data[index];
-                        valoresLatLng = new google.maps.LatLng(descartesDisponíveis[index].latitude, descartesDisponíveis[index].longitude);
-                    }
-                    else{
-                        continue;
-                    }
                     
-                    //console.log(data[index]);
-                    
-                    
+
+                }else{
+                    continue;
                 }
-            }else{
-                continue;
-            }
-            //console.log(shorter_distance);
-            console.log(descartesDisponíveis[index]);
-            
-            if(descartesDisponíveis[index].latitude != null && descartesDisponíveis[index].longitude != null){
+                
+                }
+                    //marca o ponto casa haja latitude e longitude nesse descarte no banco de dados
+                if(descartesDisponíveis[0].latitude != null && descartesDisponíveis[0].longitude != null){
+                    hasDescarte = true;
+                    var marker = new google.maps.Marker({
+                        position: valoresLatLng,
+                        map: map,
+                        title: 'Minha Localização',
+                        icon: '../images/coringa.svg',
+                        animation: google.maps.Animation.DROP,
+                        draggable: false
+                    });
 
-                new google.maps.Marker({
-                    position: valoresLatLng,
-                    map: map,
-                    title: 'Minha Localização',
-                    icon: '../images/coringa.svg',
-                    animation: google.maps.Animation.DROP,
-                    draggable: false
-                });
-            }
-            //descartesDisponíveis = data;
+                    actual_distance = calculateDistance(mylocationlatlon[0], mylocationlatlon[1], descartesDisponíveis[0].latitude, descartesDisponíveis[0].longitude);
+                    //caso clicar, ele mostra a rota
+                    marker.addListener('click', function(e, i) {
+                        
+                        calculateRoute(valoresLatLng);
+                        
+                        paragraph.textContent = "Descarte selecionado";
+                        if(actual_distance >= 1){
+                            kmparagraph.textContent = "Distância: " +Math.round(actual_distance * 100) / 100 +" km";
+                        }
+                        else{
+                            kmparagraph.textContent = "Distância: " +Math.round((actual_distance*1000) * 100) / 100 +" m";
+                        }
+                            
+                        stateButton = 2;
+
+                        const button = document.getElementById('search-button');
+
+                        button.textContent = "Confirmar coleta";
+
+                    
+
+
+                    });
+                }
+            
+            
+            // You can process the data as needed here
+        })
+        .catch((error) => {
+            console.error("There was a problem with the fetch operation:", error);
+        });
+
+        const paragraph = document.getElementById('title');
+        if(hasDescarte == true){
+            paragraph.textContent = "Descarte encontrado";
         }
-        
-        // You can process the data as needed here
-      })
-      .catch((error) => {
-        console.error("There was a problem with the fetch operation:", error);
-      });
+        const kmparagraph = document.getElementById('km-paragraph');
+
+    }
+
+    else if(stateButton == 2){
+            descartesDisponíveis[0].status = 2;
+            
+            //aqui salvo eles no BD
+            const idDoDescarteParaAtualizar = descartesDisponíveis[0].id;
+            fetch(`http://localhost:8080/descarte/update/${idDoDescarteParaAtualizar}`,
+            {
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+            },
+                method: 'PUT',
+                body: JSON.stringify(descartesDisponíveis)
+                    
+
+            })
+            .then(function(res) {console.log(res)})
+            .catch(function(res) {console.log(res)});
+    }
     
 }
 
@@ -620,7 +689,7 @@ function initAutocomplete() {
 
 function initMap() {
     getLocation();
-    initAutocomplete();
+    //initAutocomplete();
 
     var mapOptions = {
         center: {lat: -11.3300417, lng: -41.8788273},
@@ -893,21 +962,7 @@ function initMap() {
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControl.controlDiv);
     map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(meuLocalControl.controlDiv);
 
-    map.addListener('click', function(e) {
-        var clickPosition = e.latLng;
-        new google.maps.Marker({
-            position: clickPosition,
-            map: map,
-            title: 'Adicionar descarte',
-            icon: '../images/coringa.svg',
-            animation: google.maps.Animation.DROP,
-            draggable: false
-        });
-
-        abrirDetalhes(clickPosition);
-
-        
-    });
+    
 
 }
 
