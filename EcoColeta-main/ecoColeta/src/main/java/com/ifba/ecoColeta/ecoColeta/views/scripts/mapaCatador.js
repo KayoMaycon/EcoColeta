@@ -3,7 +3,8 @@ var directionsRenderer;
 var final_location = document.getElementById('final_location');
 let autocomplete;
 let userLocation = null;
-var descartesDisponíveis = [];
+var descartesDisponíveis = {};
+var valoresLatLng;
 const descarteDisponivellat = 0;
 
 
@@ -123,7 +124,7 @@ function showPosition(position) {
     
                                                                     //REALIZAR DENTRO DE UM BOTÃO
     
-    const shorter_distance = 0;
+    let shorter_distance = 0;
     var actual_distance = 0;
 
                                                                     
@@ -141,38 +142,48 @@ function showPosition(position) {
             if(data[index].status != null){
 
                 const numbertest = Number(data[index].status);
-                console.log(typeof numbertest);
-                console.log(numbertest);
+                //console.log(typeof numbertest);
+                //console.log(numbertest);
 
                 if(data[index].status == 1){
-                    console.log(data[index].id);
 
                     actual_distance = calculateDistance(lat, lon, data[index].latitude, data[index].longitude);
                     
-                    if(actual_distance < shorter_distance){
-                        descartesDisponíveis[index] = data[index];
+                    
+                    if(shorter_distance == 0){
+                        shorter_distance = actual_distance;
                     }
-                
-                    const valoresLatLng = new google.maps.LatLng(descarteDisponivel.latitude, descarteDisponivel.longitude);
-                    //console.log(descarteDisponivel.latitude );
+                    if(actual_distance <= shorter_distance){
+                        descartesDisponíveis[index] = data[index];
+                        valoresLatLng = new google.maps.LatLng(descartesDisponíveis[index].latitude, descartesDisponíveis[index].longitude);
+                    }
+                    else{
+                        continue;
+                    }
+                    
+                    //console.log(data[index]);
+                    
+                    
                 }
             }else{
                 continue;
             }
-                console.log(descartesDisponíveis[index]);
-                if(descarteDisponivel.latitude != null && descarteDisponivel.longitude != null){
+            //console.log(shorter_distance);
+            console.log(descartesDisponíveis[index]);
+            
+            if(descartesDisponíveis[index].latitude != null && descartesDisponíveis[index].longitude != null){
 
-                    new google.maps.Marker({
-                        position: valoresLatLng,
-                        map: map,
-                        title: 'Minha Localização',
-                        icon: '../images/coringa.svg',
-                        animation: google.maps.Animation.DROP,
-                        draggable: false
-                    });
-                }
-            //descartesDisponíveis = data;
+                new google.maps.Marker({
+                    position: valoresLatLng,
+                    map: map,
+                    title: 'Minha Localização',
+                    icon: '../images/coringa.svg',
+                    animation: google.maps.Animation.DROP,
+                    draggable: false
+                });
             }
+            //descartesDisponíveis = data;
+        }
         
         // You can process the data as needed here
       })
