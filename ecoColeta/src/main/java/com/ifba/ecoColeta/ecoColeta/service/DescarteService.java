@@ -10,7 +10,7 @@ public interface DescarteService {
     public Descarte createDescarte(Descarte descarte);
     public List<Descarte> retrieveAll();
     public Descarte getById(Long id);
-    public Descarte updateDescarte(Descarte descarte);
+    public void updateDescarte(Descarte descarte);
     public void delete(Long id);
     //public Boolean getByName(String email, String senha);
     //public void login(String nome, String email, String senha);

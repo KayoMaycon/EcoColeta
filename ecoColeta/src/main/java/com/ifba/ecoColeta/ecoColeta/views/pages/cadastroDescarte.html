@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../stylesheets/pop-up.css">
+    <title>Document</title>
+    <script src="../scripts/popUp_Script.js" defer></script>
+</head>
+<body>
+
+
+    <button class="btn" onclick="togglePopup()">aaaaaaaa</button>
+    <div class="overlay" id="overlay"></div>
+     <div class="popup" id="popup">
+         <h2>Selecione os Materiais Descartáveis</h2>
+         <div class="checkbox-container">
+             <label><input type="checkbox" name="material" value="Plástico"> Plástico</label>
+             <label><input type="checkbox" name="material" value="Papel"> Papel</label>
+             <label><input type="checkbox" name="material" value="Vidro"> Vidro</label>
+             <label><input type="checkbox" name="material" value="Metal"> Metal</label>
+         </div>
+         <input type="text" placeholder="Nome" id="nome">
+         <input type="text" placeholder="Quantidade" id="quantidade">
+         <button class="close-btn" onclick="togglePopup(); createDescarte()">Cadastrar descarte</button>
+     </div>
+    
+</body>
+</html>
