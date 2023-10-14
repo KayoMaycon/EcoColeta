@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mapa Eco</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <link rel="stylesheet" href="../stylesheets/map-style.css">
+
+    <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon">
+
+</head>
+
+<body>
+    <div align="center" class="search">
+        <input type="text" name="my_location" id="my_location" placeholder="Onde estou..." value="" disabled />
+        <input type="text" name="final_location" id="final_location" placeholder="Escolha o local..." value="" />
+    </div>
+    <!--<div><button>Selecionar</button></div>-->
+    <div id="map"></div>
+
+     
+    <div class="overlay" id="overlay"></div>
+     <div class="popup" id="popup">
+         <h2>Selecione os Materiais Descartáveis</h2>
+         <div class="checkbox-container">
+             <label><input type="checkbox" name="material" value="Plástico"> Plástico</label>
+             <label><input type="checkbox" name="material" value="Papel"> Papel</label>
+             <label><input type="checkbox" name="material" value="Vidro"> Vidro</label>
+             <label><input type="checkbox" name="material" value="Metal"> Metal</label>
+         </div>
+         <input type="text" placeholder="Nome" id="nome">
+         <input type="text" placeholder="Quantidade" id="quantidade">
+         <button class="close-btn" onclick="togglePopup(); createDescarte()">Cadastrar descarte</button>
+     </div>
+    
+    <script src="../scripts/mapa-script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6jbXU6rzzlIPpJvtIYA9TUWeSpAnPiOE&libraries=places&callback=initMap" async defer></script>
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+ /* Estilos para o pop-up */
+ .popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(98, 165, 117);
+    background: radial-gradient(circle, rgb(98, 165, 117) 0%, rgb(219, 100, 100) 100%);
+    padding: 20px;
+    flex: content;
+    border-radius: 1cm;
+   
+    z-index: 999;
+}
+
+
+
+/* Estilos para os checkboxes */
+.checkbox-container {
+    margin-bottom: 10px;
+}
+
+.checkbox-container label {
+    display: block;
+    width: 150;
+    margin-bottom: 5px;
+}
+
+/* Estilos para os campos de texto */
+input[type="text"] {
+    margin-bottom: 10px;
+    width: 97%;
+    padding: 8px;
+    border-radius: 1cm;
+
+
+}
+
+/* Estilos para o botão de fechar */
+.close-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 1cm;
+}
